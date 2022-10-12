@@ -6,7 +6,7 @@
 
 	<groupId>de.webalf</groupId>
 	<artifactId>jar-packing-maven-example</artifactId>
-	<description>Example to package a maven project in a jar. Execute mvn clean package</description>
+	<description>Example to package a java fx project in a jar. Execute mvn clean package</description>
 	<version>1.0-SNAPSHOT</version>
 
 	<properties>
@@ -15,21 +15,40 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+		<javafx.version>19</javafx.version>
+		<javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
 		<maven-assembly.version>3.4.2</maven-assembly.version>
 	</properties>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-controls</artifactId>
+			<version>${javafx.version}</version>
+		</dependency>
+	</dependencies>
+
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.openjfx</groupId>
+				<artifactId>javafx-maven-plugin</artifactId>
+				<version>${javafx.maven.plugin.version}</version>
+				<configuration>
+					<mainClass>de.webalf.javafxdemo.HelloFX</mainClass>
+				</configuration>
+			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>${maven-assembly.version}</version>
 				<configuration>
-					<finalName>JarPackagedExample</finalName> <!-- Optional: Custom jar name -->
+					<finalName>HelloFxPackagedExample</finalName> <!-- Optional: Custom jar name -->
 					<appendAssemblyId>false</appendAssemblyId> <!-- Optional: remove -with-dependencies postfix -->
 					<archive>
 						<manifest>
-							<mainClass>de.webalf.Main</mainClass>
+							<mainClass>de.webalf.javafxdemo.FxAppLauncher</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
